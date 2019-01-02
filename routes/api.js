@@ -6,7 +6,7 @@ var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 var assert = require('assert');
 var moment = require('moment');
-var sendsms = require('../service/sendsummary');
+var smsservice = require('../service/sendsummary');
 
 /* GET home page. */
 router.get('/daysummary', function(req, res, next) {
@@ -111,9 +111,9 @@ router.get('/daysummary', function(req, res, next) {
             //console.log("Zone Summary>>",zoneSummary);
             //console.log("Summarry>>",apiResponse);
             //{day: queryResult,month:monthArray}
-            sendsms.sendMessage(zoneSummary);
+            smsservice.sendMessage(apiResponse);
 
-            res.send(apiResponse);
+            res.send({Message: "Messages Sent successfully"});
         } catch (err) {
             console.log(err.stack);
         }
