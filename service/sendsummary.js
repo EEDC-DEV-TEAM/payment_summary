@@ -50,12 +50,12 @@ class  sendsummary {
                     requestData.message = message;
                     requestData.recipient=contacts[i].phoneNumber;
                     console.log("Name: ",contacts[i].name+"\n"+message);
+
+                    httpservice.sendSMSToCustomer("GET",requestData,function (response) {
+                        console.log(phonenumbers[i]+" SMS Api Response",response);
+                    })
                 }
             }
-
-            // httpservice.sendSMSToCustomer("GET",requestData,function (response) {
-            //     console.log(phonenumbers[i]+" SMS Api Response",response);
-            // })
         }
 
         //console.log("Contacts",contacts[0]);
