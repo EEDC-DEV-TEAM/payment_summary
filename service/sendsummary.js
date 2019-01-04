@@ -57,7 +57,6 @@ class  sendsummary {
                 }
             }
         }
-
         //console.log("Contacts",contacts[0]);
     }
 }

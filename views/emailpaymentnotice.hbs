@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:remove="all"></title>
+    <style type="text/css">
+        .container {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            bottom: 0;
+            padding: 15px;
+            left: 0;
+            top: 10px;
+            right: 0;
+            margin: auto;
+            width: 90%;
+            height: 100%;
+            background: #fafafa;
+            border: 1px #f8f8f8 solid;
+            box-shadow: 2px 5px #f8f8f8;
+        }
+
+        body {
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            width: 95%;
+            height: 100%
+        }
+
+        .image {
+            margin-top: 0;
+            display: inline-block;
+        }
+
+        .content {
+            margin_top: 50px;
+            margin-left: 5px;
+        }
+
+        #fn {
+            margin-top: 5px;
+            margin-left: 4px;
+        }
+
+        .info {
+            width: 50%;
+            bottom: 0;
+            left: 15px;
+            top: 30px;
+            right: 20px;
+            background: #f3f3f3;
+        }
+
+        .i {
+            margin-top: 7px;
+        }
+
+        .cont {
+            margin-top: 5px;
+            padding-top: 4px;
+            margin-right: 5px;
+        }
+
+        .note {
+            margin-top: 10px;
+            margin-left: 15px;
+
+        }
+
+        .nt {
+            display: inline-block;
+            float: right;
+
+        }
+
+        table td {
+            border: 0 solid black;
+            border-collapse: collapse;
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        table {
+            margin-top: 20px;
+            margin-left: 55px;
+            padding-top: 15px;
+        }
+
+        .footer {
+            font-size: 12px;
+            color: #444;
+            margin-left: 10px;
+        }
+
+        .x {
+            background: #707070;
+            width: 100%;
+            border: 1px solid #707070;
+            height: 20px;
+            display: inline-block;
+            position: relative;
+            text-align: center;
+        }
+
+        .x ul {
+            position: absolute;
+            margin-top: 0px;
+            color: white;
+            padding: 0px;
+            width: 90%;
+            margin: 0 auto;
+            margin-left: 35px;
+        }
+
+        .heading {
+            display: inline-block;
+            width: 100%;
+            margin_top: 10px;
+        }
+
+        .h {
+            height: 6px;
+            width: 100%;
+            margin-bottom: 0;
+            margin-right: 10px;
+        }
+
+        .ol {
+            display: inline-block;
+            font-size: 11px;
+            margin-left: 20px;
+        }
+
+        .c {
+            margin-left: 10px;
+        }
+
+        #p {
+            margin-top: 0;
+            margin-right: 25px;
+        }
+
+        .d {
+            height: 35px;
+            margin-left: 45%;
+        }
+
+        #h1 {
+            float: left;
+            font-size: 17px;
+            margin-top: 5px;
+            margin-left: 5px;
+        }
+
+        #h2 {
+
+            float: right;
+            margin-top: 5px;
+            margin-right: 25px;
+
+        }
+
+        td.tbl {
+            width: 30%;
+
+        }
+
+        td.tbr {
+            padding-left: 0;
+            width: 50%;
+
+        }
+
+
+    </style>
+</head>
+<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+<div class="container">
+    <div>
+        <!--<img src="/images/EEDC_logo.png"/>-->
+    </div>
+    <P class="cont" style="text-align:right" id="p"><b></b></P>
+    <div class="heading">
+        <div>
+            <P class="cont" id="h1"><b style="color:#20689E">Hourly Payment Summary</b></P>
+        </div>
+        <!--engage.eedc.online:8001-->
+    </div>
+    <!--<div class="content">-->
+        <!--<br/><br/>-->
+        <!--<P class="i">Hi <b></b></P>-->
+            <!--<p class="cont"></p>-->
+         <!--<br/>-->
+        <!--<br/>-->
+    <!--</div>-->
+    <!--<div class="note">-->
+        <!--<img src="note1_icon.png" class="nt"/>-->
+    <!--</div>-->
+    <!--<P class="cont"><b style="color:#20689E">Ticket details:</b></P>-->
+    <div class="info">
+        <table style="width:95%">
+            {{#each payment.payments}}
+                <tr>
+                    <td class="tbl"><p class="cont">{{this._id}}</p></td>
+                    <td class="tbr"><p class="cont">{{this.count}}</p></td>
+                </tr>
+            {{/each}}
+        </table>
+        <br/>
+    </div>
+    <div id="fn">
+        <br/>
+        <br/>
+        <p>
+            <!--Regards, <br/><br/>-->
+            <!--&emsp; <em>EEDC ICT Team</em>-->
+        </p>
+    </div>
+    <br/><br/>
+    <div>
+        <img src="footer1.png" th:src="|cid:${footerbar}|" class="h">
+    </div>
+    <div class="x">
+        <ul>
+            <li class="ol"> Aba</li>
+            <li class="ol"> Anambra</li>
+            <li class="ol"> Awka</li>
+            <li class="ol"> Ebonyi</li>
+            <li class="ol"> Enugu</li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

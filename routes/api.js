@@ -7,10 +7,10 @@ var await = require('asyncawait/await');
 var assert = require('assert');
 var moment = require('moment');
 var smsservice = require('../service/sendsummary');
+var mailService = require('../service/mailService');
 
 /* GET home page. */
 router.get('/daysummary', function(req, res, next) {
-
     const url = 'mongodb://localhost:27017';
     const dbName = 'cashcollectiondb';
     let queryResult =[];
@@ -23,17 +23,8 @@ router.get('/daysummary', function(req, res, next) {
         try {
             await client.connect();
             console.log("Connected correctly to server");
-
             const db = client.db(dbName);
-
-            // Get the collection
             const col = db.collection('transaction');
-
-            // Insert multiple documents
-            //const r = await col.insertMany([{a:1}, {a:1}, {a:1}]);
-            //assert.equal(3, r.insertedCount);
-
-            // Get the cursor
             const cursor = col.aggregate({$match:{customerDistrict:{$exists: true},status:"Successful","transactionDate":{$gte: new Date(new Date().setHours(00,00,00)),
                 $lt: new Date(new Date().setHours(23,59,59))}}},
                 {$project: {'paymentPlan': 1,'amount':1,'customerDistrict': {$let: {vars: {refParts: {$objectToArray: '$$ROOT.customerDistrict'}}, in: '$$refParts.v'}}}},
@@ -86,15 +77,6 @@ router.get('/daysummary', function(req, res, next) {
                 zoneSummary = {district: "Zone",transactions: doc.transactions,daytotal:doc.daytotal};
             }
 
-            // const cursor4 = col.aggregate({$match:{"status": "Successful",transactionDate:{$gte: monthStart}}},
-            //     {$group: {_id: "$status",mtd:{$sum: "$amount"}}});
-            //
-            // while(await cursor4.hasNext()) {
-            //     const docs = await cursor4.next();
-            //     //console.log("Doc>>>",doc);
-            //     //grandtotal.push(docs);
-            // }
-
             for(var i=0;i<monthArray.length;i++){
                 for(var j =0;j<queryResult.length;j++){
                     if(monthArray[i]._id===queryResult[j]._id){
@@ -108,9 +90,6 @@ router.get('/daysummary', function(req, res, next) {
             zoneSummary.mtd = grandtotal;
             apiResponse.push(zoneSummary);
 
-            //console.log("Zone Summary>>",zoneSummary);
-            //console.log("Summarry>>",apiResponse);
-            //{day: queryResult,month:monthArray}
             smsservice.sendMessage(apiResponse);
 
             res.send({Message: "Messages Sent successfully"});
@@ -120,6 +99,46 @@ router.get('/daysummary', function(req, res, next) {
         // Close connection
         client.close();
     })();
-});
+})
+
+router.get('/paymentcount',function(req,res){
+    //console.log("Time>>>",new Date(moment().startOf("hour").toISOString()));
+    const emails=["gfagbohun@enugudisco.com","cokwuokei@enugudisco.com","udeshmukh@enugudisco.com"];
+    const url = 'mongodb://localhost:27017';
+    const dbName = 'cashcollectiondb';
+    let queryResult =[];
+    (async function() {
+        const client = new MongoClient(url);
+        try {
+            await client.connect();
+            //console.log("Connected correctly to server");
+            const db = client.db(dbName);
+            const col = db.collection('transaction');
+
+            var hour = moment().startOf('hour').toISOString(true);
+            //hour=monthStart.split("+")[0]+"Z"
+            hour = new Date(hour);
+            console.log("time>>",hour);
+            const cursor = col.aggregate([{$match:{"status": "Successful",transactionDate:{$gte: hour}}},
+                {$group: {_id: "$paymentPlan",count:{$sum: 1}}}]);
+
+            while(await cursor.hasNext()) {
+                const docs = await cursor.next();
+                //console.log("Doc>>>",doc);
+                queryResult.push(docs);
+            }
+
+            for(var i=0;i<emails.length;i++){
+                mailService.sendMailRequest(emails[i],"emailpaymentnotice",{payments:queryResult},res);
+            }
+            //console.log("Result>>",queryResult);
+            res.send({Message: "Email sent successfully"});
+        } catch (err) {
+            console.log(err.stack);
+        }
+        // Close connection
+        client.close();
+    })();
+})
 
 module.exports = router;
