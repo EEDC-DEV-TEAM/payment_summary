@@ -14,8 +14,8 @@
 	{
 		"phoneNumber": "2348150824362",
 		"name": "UGHASORO LEONARD OBIERIKA",
-		"buid": "60A",
-		"district": "Abakpa"
+		"buid": "56B",
+		"district": "Ariaria"
 	},
 	{
 		"phoneNumber": "2348150824347",
@@ -36,8 +36,8 @@
 		"district": "Awka"
 	},
 	{
-		"phoneNumber": "2348150824370",
-		"name": "OZONWEKE HUMPHREY ONYEKA",
+		"phoneNumber": "2348150825881",
+		"name": "J. LENK",
 		"buid": "51B",
 		"district": "Awkunanaw"
 	},
@@ -48,14 +48,14 @@
 		"district": "Ekwulobia"
 	},
 	{
-		"phoneNumber": "2348150824353",
-		"name": "AKUJUOBI CHRISTAIN CHUKWUNYERE",
+		"phoneNumber": "2348037720141",
+		"name": "JUDE EFIDI",
 		"buid": "58C",
 		"district": "New Owerri"
 	},
 	{
-		"phoneNumber": "2348150824312",
-		"name": "EJECKAM IFEANYI UGOCHUKWU",
+		"phoneNumber": "2348150824956",
+		"name": "OKEZIE UDOCHUKWU",
 		"buid": "55A",
 		"district": "Nnewi"
 	},
@@ -84,8 +84,14 @@
 		"district": "Ogui"
 	},
 	{
-		"phoneNumber": "2348150824379",
-		"name": "DIM EMMANUEL",
+		"phoneNumber": "2348150824086",
+		"name": "Uche Okala Onuka",
+		"buid": "ZONE",
+		"district": "Zone"
+	},
+	{
+		"phoneNumber": "2348150825860",
+		"name": "SHASHI CHAUBE",
 		"buid": "52A",
 		"district": "Onitsha"
 	},
@@ -96,8 +102,8 @@
 		"district": "Orlu"
 	},
 	{
-		"phoneNumber": "2348150824786",
-		"name": "EZEOHA CHRISTOPHER",
+		"phoneNumber": "2348150825859",
+		"name": "YASH SAINI",
 		"buid": "58B",
 		"district": "Owerri"
 	},
@@ -114,7 +120,7 @@
 		"district": "Mbaise"
 	},
 	{
-		"phoneNumber": "2348067759749",
+		"phoneNumber": "2348150824815",
 		"name": "Chika Okwuokei",
 		"buid": "ZONE",
 		"district": "Zone"
@@ -180,7 +186,7 @@
 		"district": "Zone"
 	},
 	{
-		"phoneNumber": "2348038371670",
+		"phoneNumber": "2348150824383",
 		"name": "Canice Emeka",
 		"buid": "ZONE",
 		"district": "Zone"
@@ -210,3 +216,4 @@
 		"district": "Zone"
 	}
 ]
+

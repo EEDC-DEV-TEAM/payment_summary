@@ -52,7 +52,7 @@ class  sendsummary {
                     console.log("Name: ",contacts[i].name+"\n"+message);
 
                     httpservice.sendSMSToCustomer("GET",requestData,function (response) {
-                        console.log(phonenumbers[i]+" SMS Api Response",response);
+                        console.log(requestData.recipient+" SMS Api Response",response);
                     })
                 }
             }
