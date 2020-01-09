@@ -198,6 +198,127 @@ router.get('/totalcollection', function(req, res, next) {
     })();
 })
 
+router.get('/collections', function(req, res, next) {
+    const district = req.query.district;
+
+    const url = 'mongodb://localhost:27017';
+    const dbName = 'cashcollectiondb';
+    let queryResult =[];
+    let monthArray =[];
+    let apiResponse =[];
+    let zoneSummary={};
+    let grandtotal=0;
+    (async function() {
+        const client = new MongoClient(url);
+        try {
+            await client.connect();
+            console.log("Connected correctly to server");
+            const db = client.db(dbName);
+            const col = db.collection('transaction');
+            var dayStart = moment().startOf('day').toISOString(true);
+            console.log("DayStart>>>",dayStart);
+
+            const cursor = col.aggregate({$match:{customerDistrict:{$exists: true}, districtString:district.trim(), status:"Successful","transactionDate":{$gte: new Date(dayStart)}}},
+                {$project: {'paymentPlan': 1,'amount':1,'districtString':1}},
+                {$group: {_id: {district: "$districtString", plan: "$paymentPlan"},
+                    count:{$sum:1},total:{$sum: "$amount"}}},{$group:{_id:"$_id.district",transactions:{$push:{plan: "$_id.plan",count: "$count",
+                    total: "$total"}},daytotal: {$sum: "$total"}}},{$sort:{_id: 1}});
+
+
+            while(await cursor.hasNext()) {
+                const doc = await cursor.next();
+                queryResult.push(doc);
+            }
+            //console.log("DaySummary>>>>",queryResult);
+
+            var date = new Date();
+            var firstDay = new Date(date.getFullYear(), date.getMonth(), 2);
+            var monthStart = moment().startOf('month').toISOString(true);
+            monthStart=monthStart.split("+")[0]+"Z"
+            monthStart = new Date(monthStart);
+
+            const cursor2 = col.aggregate({$match:{customerDistrict:{$exists: true},districtString:district.trim(),"status": "Successful",transactionDate:{$gte: monthStart}}},
+                {$project: {'amount':1,'districtString':1}},
+                {$group: {_id: "$districtString",count:{$sum:1},total:{$sum: "$amount"}}},
+                {$sort:{_id: 1}});
+
+
+            while(await cursor2.hasNext()) {
+                const doc = await cursor2.next();
+                monthArray.push(doc);
+            }
+
+            var result = {district:monthArray[0]._id,transactions: queryResult[0].transactions,daytotal:queryResult[0].daytotal,mtd:monthArray[0].total};
+            res.send(result);
+
+        } catch (err) {
+            console.log(err.stack);
+        }
+        // Close connection
+        client.close();
+    })();
+})
+
+router.get('/allcollections', function(req, res, next) {
+    const url = 'mongodb://localhost:27017';
+    const dbName = 'cashcollectiondb';
+    let queryResult =[];
+    let monthArray =[];
+    let apiResponse =[];
+    let zoneSummary={};
+    let grandtotal=0;
+    (async function() {
+        const client = new MongoClient(url);
+        try {
+            await client.connect();
+            console.log("Connected correctly to server");
+            const db = client.db(dbName);
+            const col = db.collection('transaction');
+            var dayStart = moment().startOf('day').toISOString(true);
+            console.log("DayStart>>>",dayStart);
+
+            const cursor = col.aggregate({$match:{customerDistrict:{$exists: true},status:"Successful","transactionDate":{$gte: new Date(dayStart)}}},
+                {$project: {'paymentPlan': 1,'amount':1,'districtString':1,status:1}},
+                {$group: {_id: {district: "$status", plan: "$paymentPlan"},
+                    count:{$sum:1},total:{$sum: "$amount"}}},
+                {$group:{_id:"$_id.status",transactions:{$push:{plan: "$_id.plan",count: "$count",
+                    total: "$total"}},daytotal: {$sum: "$total"}}},{$sort:{_id: 1}});
+
+            // const cursor=col.aggregate({$match:{"status": "Successful",transactionDate:{$gte: new Date(dayStart)}}},
+            //     {$project: {'amount':1,'paymentPlan':1}},{$group: {_id: "$paymentPlan",count:{$sum:1},total:{$sum: "$amount"},daytotal: {$sum: "$total"}}},{$sort:{_id: 1}});
+
+                // {$group:{_id:"$_id.district",transactions:{$push:{plan: "$_id.plan",count: "$count",
+                //     total: "$total"}},}},{$sort:{_id: 1}});
+            while(await cursor.hasNext()) {
+                const doc = await cursor.next();
+                queryResult.push(doc);
+            }
+            console.log("DaySummary>>>>",queryResult);
+
+            var date = new Date();
+            var firstDay = new Date(date.getFullYear(), date.getMonth(), 2);
+            var monthStart = moment().startOf('month').toISOString(true);
+            monthStart=monthStart.split("+")[0]+"Z"
+            monthStart = new Date(monthStart);
+
+            const cursor2 = col.aggregate({$match:{"status": "Successful",transactionDate:{$gte: monthStart}}},
+                {$project: {'amount':1,'status':1}},{$group: {_id: "$status",count:{$sum:1},total:{$sum: "$amount"}}},{$sort:{_id: 1}});
+
+
+            while(await cursor2.hasNext()) {
+                const doc = await cursor2.next();
+                monthArray.push(doc);
+            }
+
+            var result = {transactions: queryResult[0].transactions,daytotal:queryResult[0].daytotal,mtd:monthArray[0].total};
+            res.send(result);
+
+        } catch (err) {
+            console.log(err.stack);
+        }
+        client.close();
+    })();
+})
 
 router.get('/paymentcount',function(req,res){
     //console.log("Time>>>",new Date(moment().startOf("hour").toISOString()));
@@ -238,5 +359,7 @@ router.get('/paymentcount',function(req,res){
         client.close();
     })();
 })
+
+
 
 module.exports = router;
