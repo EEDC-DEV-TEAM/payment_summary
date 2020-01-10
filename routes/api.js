@@ -225,9 +225,20 @@ router.get('/collections', function(req, res, next) {
                     total: "$total"}},daytotal: {$sum: "$total"}}},{$sort:{_id: 1}});
 
 
-            while(await cursor.hasNext()) {
+            if(await cursor.hasNext()) {
                 const doc = await cursor.next();
                 queryResult.push(doc);
+            }else{
+                queryResult.push({transactions:[{
+                    "plan": "Postpaid",
+                    "count": 0,
+                    "total": 0
+                },
+                    {
+                        "plan": "Prepaid",
+                        "count": 0,
+                        "total": 0
+                    }],daytotal:0})
             }
             //console.log("DaySummary>>>>",queryResult);
 
@@ -243,12 +254,15 @@ router.get('/collections', function(req, res, next) {
                 {$sort:{_id: 1}});
 
 
-            while(await cursor2.hasNext()) {
+            if(await cursor2.hasNext()) {
                 const doc = await cursor2.next();
                 monthArray.push(doc);
+            }else{
+                monthArray.push({_id:district,total:0})
             }
 
             var result = {district:monthArray[0]._id,transactions: queryResult[0].transactions,daytotal:queryResult[0].daytotal,mtd:monthArray[0].total};
+            //console.log("result>>>",result);
             res.send(result);
 
         } catch (err) {
@@ -289,10 +303,22 @@ router.get('/allcollections', function(req, res, next) {
 
                 // {$group:{_id:"$_id.district",transactions:{$push:{plan: "$_id.plan",count: "$count",
                 //     total: "$total"}},}},{$sort:{_id: 1}});
-            while(await cursor.hasNext()) {
+            if(await cursor.hasNext()) {
                 const doc = await cursor.next();
                 queryResult.push(doc);
+            }else{
+                queryResult.push({transactions:[{
+                    "plan": "Postpaid",
+                    "count": 0,
+                    "total": 0
+                },
+                    {
+                        "plan": "Prepaid",
+                        "count": 0,
+                        "total": 0
+                    }],daytotal:0})
             }
+
             console.log("DaySummary>>>>",queryResult);
 
             var date = new Date();
@@ -305,9 +331,16 @@ router.get('/allcollections', function(req, res, next) {
                 {$project: {'amount':1,'status':1}},{$group: {_id: "$status",count:{$sum:1},total:{$sum: "$amount"}}},{$sort:{_id: 1}});
 
 
-            while(await cursor2.hasNext()) {
+            // while(await cursor2.hasNext()) {
+            //     const doc = await cursor2.next();
+            //     monthArray.push(doc);
+            // }
+
+            if(await cursor2.hasNext()) {
                 const doc = await cursor2.next();
                 monthArray.push(doc);
+            }else{
+                monthArray.push({total:0})
             }
 
             var result = {transactions: queryResult[0].transactions,daytotal:queryResult[0].daytotal,mtd:monthArray[0].total};
