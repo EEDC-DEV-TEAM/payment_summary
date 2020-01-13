@@ -143,28 +143,20 @@ router.get('/monthsummary',function(req,res,next){
             }
             //console.log("MonthArray>>>",monthArray);
 
-            var districts=["Aba","Abakaliki","Ariaria","Awka","Awkunanaw","Ogui","Nsukka","Nnewi",
-                "Abakpa","Ogidi","Ogbaru","Onitsha","Ekwulobia","Orlu","Mbaise","Owerri","New Owerri","Umuahia"];
+            var districts=['Aba','Abakaliki','Ariaria','Awka','Awkunanaw','Ogui','Nsukka','Nnewi',
+                'Abakpa','Ogidi','Ogbaru','Onitsha','Ekwulobia','Orlu','Mbaise','Owerri','New Owerri','Umuahia'];
 
             //console.log("18 districts>>>",districts);
 
-            //console.log("districts>>>",distArr);
-
+            //console.log("database districts>>>",distArr);
+           // const tempMonthArray =
             districts.map((item,index)=> {
-                //console.log("indexof>>"+districts[index]+"<<<is>>>"+distArr.indexOf(districts[index]));
-                if(distArr.indexOf((districts[index])==-1)){
-                    monthArray.push({_id:districts[index],count:0,mtd:0})
+                if(!distArr.includes((districts[index]))){
+                    monthArray.push({_id:districts[index],count:0,mtd:0});
                 }
             })
 
-            // for(var i=0;i<=districts.length,i++;){
-            //     console.log("indexof>>"+districts[i]+"<<<is>>>"+distArr.indexOf(districts[i]));
-            //
-            //     if(distArr.indexOf(districts[i])==-1)
-            //         monthArray.push({_id:districts[i],count:0,mtd:0})
-            // }
-
-            //console.log("MonthArray after loop>>>",monthArray);
+            //console.log("MonthArray after loop>>>",monthArray.length);
 
             res.send(monthArray);
 
