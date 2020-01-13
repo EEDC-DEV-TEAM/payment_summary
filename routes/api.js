@@ -101,6 +101,85 @@ router.get('/daysummary', function(req, res, next) {
     })();
 })
 
+
+router.get('/monthsummary',function(req,res,next){
+    const url = 'mongodb://localhost:27017';
+    const dbName = 'cashcollectiondb';
+
+    (async function() {
+        const client = new MongoClient(url);
+        try {
+            await client.connect();
+            console.log("Connected correctly to server");
+            const db = client.db(dbName);
+            const col = db.collection('transaction');
+            var monthStart = moment().startOf('month').toISOString(true);
+            monthStart=monthStart.split("+")[0]+"Z"
+            monthStart = new Date(monthStart);
+
+            var monthArray=[];
+
+            // col.aggregate({$match:{customerDistrict:{$exists: true},"status": "Successful",transactionDate:{$gte: monthStart}}},
+            //    {$project: {'amount':1,'customerDistrict': {$let: {vars: {refParts: {$objectToArray: '$$ROOT.customerDistrict'}}, in: '$$refParts.v'}}}},
+            //    {$lookup:{from:'district',localField:'customerDistrict',foreignField:'_id',as:'bu'}},
+            //    {$unwind:'$bu'},
+            //    {$group: {_id: "$bu.name",count:{$sum:1},mtd:{$sum: "$amount"}}},
+            //    {$sort:{_id: 1}});
+
+            const cursor2 = col.aggregate({$match:{customerDistrict:{$exists: true},"status": "Successful",transactionDate:{$gte: monthStart}}},
+                {$project: {'amount':1,'districtString':1}},
+                {$group: {_id: "$districtString",count:{$sum:1},mtd:{$sum: "$amount"}}},
+                {$sort:{_id: 1}});
+
+
+            var distArr=[];
+
+            //console.log("cursor.next>>>",cursor2.hasNext());
+            //const doc_cursor =);
+            while(await cursor2.hasNext()) {
+                const doc = await cursor2.next();
+                monthArray.push(doc);
+                distArr.push(doc._id);
+            }
+            //console.log("MonthArray>>>",monthArray);
+
+            var districts=["Aba","Abakaliki","Ariaria","Awka","Awkunanaw","Ogui","Nsukka","Nnewi",
+                "Abakpa","Ogidi","Ogbaru","Onitsha","Ekwulobia","Orlu","Mbaise","Owerri","New Owerri","Umuahia"];
+
+            //console.log("18 districts>>>",districts);
+
+            //console.log("districts>>>",distArr);
+
+            districts.map((item,index)=> {
+                //console.log("indexof>>"+districts[index]+"<<<is>>>"+distArr.indexOf(districts[index]));
+                if(distArr.indexOf((districts[index])==-1)){
+                    monthArray.push({_id:districts[index],count:0,mtd:0})
+                }
+            })
+
+            // for(var i=0;i<=districts.length,i++;){
+            //     console.log("indexof>>"+districts[i]+"<<<is>>>"+distArr.indexOf(districts[i]));
+            //
+            //     if(distArr.indexOf(districts[i])==-1)
+            //         monthArray.push({_id:districts[i],count:0,mtd:0})
+            // }
+
+            //console.log("MonthArray after loop>>>",monthArray);
+
+            res.send(monthArray);
+
+        }catch (err){
+            console.log(err.stack);
+        }
+        client.close();
+    })()
+})
+
+function getDistricts() {
+    return ["Aba","Abakaliki","Ariaria","Awka","Awkunanaw","Ogui","Nsukka","Nnewi",
+        "Abakpa","Ogidi","Ogbaru","Onitsha","Ekwulobia","Orlu","Mbaise","Owerri","New Owerri","Umuahia"]
+}
+
 router.get('/totalcollection', function(req, res, next) {
     const url = 'mongodb://localhost:27017';
     const dbName = 'cashcollectiondb';
