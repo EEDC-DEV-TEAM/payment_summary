@@ -464,6 +464,37 @@ router.get('/paymentcount',function(req,res){
     })();
 })
 
+router.get('/user',function(req,res){
+    const url = 'mongodb://localhost:27017';
+    const dbName = 'cashcollectiondb';
+    let queryResult =[];
+    (async function() {
+        const client = new MongoClient(url);
+        try {
+            await client.connect();
+            console.log("Connected correctly to server");
+            const db = client.db(dbName);
+            const col = db.collection('usermaster');
+
+
+            const user= await col.findOne({userName:req.query.username},{projection:{userId:1,userName:1,secondaryUserName:1,firstName:1,lastName:1,emailAddress:1}});
+
+
+            console.log("User>>>>>>>>>>>>>>>",user);
+
+            //const users=col.find({});
+
+            //console.log("######Users##########",users);
+
+            res.send(user);
+        } catch (err) {
+            console.log(err.stack);
+        }
+        // Close connection
+        client.close();
+    })();
+})
+
 
 
 module.exports = router;
