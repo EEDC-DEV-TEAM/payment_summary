@@ -11,7 +11,7 @@ var mailService = require('../service/mailService');
 
 /* GET home page. mongodb://admin:password@localhost:27017/db*/
 router.get('/daysummary', function(req, res, next) {
-    const url = 'mongodb://ccweb:cc-Admin-u$er@localhost:27017?authMechanism=DEFAULT&authSource=admin';
+    const url = 'mongodb://ccweb:cc-Admin-u$er@localhost:27017/?authMechanism=DEFAULT&authSource=admin';
     const dbName = 'cashcollectiondb';
     let queryResult =[];
     let monthArray =[];
@@ -104,7 +104,7 @@ router.get('/daysummary', function(req, res, next) {
 
 
 router.get('/monthsummary',function(req,res,next){
-    const url = 'mongodb://ccweb:cc-Admin-u$er@localhost:27017?authMechanism=DEFAULT&authSource=admin';
+    const url = 'mongodb://ccweb:cc-Admin-u$er@localhost:27017/?authMechanism=DEFAULT&authSource=admin';
     const dbName = 'cashcollectiondb';
 
     (async function() {
@@ -174,7 +174,7 @@ function getDistricts() {
 }
 
 router.get('/totalcollection', function(req, res, next) {
-    const url = 'mongodb://ccweb:cc-Admin-u$er@localhost:27017?authMechanism=DEFAULT&authSource=admin';
+    const url = 'mongodb://ccweb:cc-Admin-u$er@localhost:27017/?authMechanism=DEFAULT&authSource=admin';
     const dbName = 'cashcollectiondb';
     let queryResult =[];
     let monthArray =[];
@@ -273,7 +273,7 @@ router.get('/totalcollection', function(req, res, next) {
 router.get('/collections', function(req, res, next) {
     const district = req.query.district;
 
-    const url = 'mongodb://ccweb:cc-Admin-u$er@localhost:27017?authMechanism=DEFAULT&authSource=admin';
+    const url = 'mongodb://ccweb:cc-Admin-u$er@localhost:27017/?authMechanism=DEFAULT&authSource=admin';
     const dbName = 'cashcollectiondb';
     let queryResult =[];
     let monthArray =[];
@@ -346,7 +346,7 @@ router.get('/collections', function(req, res, next) {
 })
 
 router.get('/allcollections', function(req, res, next) {
-    const url = 'mongodb://ccweb:cc-Admin-u$er@localhost:27017?authMechanism=DEFAULT&authSource=admin';
+    const url = 'mongodb://ccweb:cc-Admin-u$er@localhost:27017/?authMechanism=DEFAULT&authSource=admin';
     const dbName = 'cashcollectiondb';
     let queryResult =[];
     let monthArray =[];
@@ -428,7 +428,7 @@ router.get('/allcollections', function(req, res, next) {
 router.get('/paymentcount',function(req,res){
     //console.log("Time>>>",new Date(moment().startOf("hour").toISOString()));
     const emails=["gfagbohun@enugudisco.com","udeshmukh@enugudisco.com"];
-    const url = 'mongodb://ccweb:cc-Admin-u$er@localhost:27017?authMechanism=DEFAULT&authSource=admin';
+    const url = 'mongodb://ccweb:cc-Admin-u$er@localhost:27017/?authMechanism=DEFAULT&authSource=admin';
     const dbName = 'cashcollectiondb';
     let queryResult =[];
     (async function() {
@@ -466,7 +466,7 @@ router.get('/paymentcount',function(req,res){
 })
 
 router.get('/user',function(req,res){
-    const url = 'mongodb://ccweb:cc-Admin-u$er@localhost:27017?authMechanism=DEFAULT&authSource=admin';
+    const url = 'mongodb://ccweb:cc-Admin-u$er@localhost:27017/?authMechanism=DEFAULT&authSource=admin';
     const dbName = 'cashcollectiondb';
     let queryResult =[];
     (async function() {
