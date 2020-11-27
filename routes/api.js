@@ -321,19 +321,33 @@ router.get('/collections', function(req, res, next) {
             monthStart = new Date(monthStart);
 
             const cursor2 = col.aggregate({$match:{customerDistrict:{$exists: true},districtString:district.trim(),"status": "Successful",transactionDate:{$gte: monthStart}}},
-                {$project: {'amount':1,'districtString':1}},
-                {$group: {_id: "$districtString",count:{$sum:1},total:{$sum: "$amount"}}},
+                {$project: {'amount':1,'districtString':1,'paymentPlan':1}},
+                {$group: {_id: "$paymentPlan",count:{$sum:1},total:{$sum: "$amount"}}},
                 {$sort:{_id: 1}});
 
 
-            if(await cursor2.hasNext()) {
+            while(await cursor2.hasNext()) {
                 const doc = await cursor2.next();
                 monthArray.push(doc);
-            }else{
-                monthArray.push({_id:district,total:0})
+            }
+            // else{
+            //     monthArray.push({_id:district,total:0})
+            // }
+
+            let monthData ={total:0,ppmCount:0,postpaidCount:0};
+
+            if(monthArray.length>0){
+                monthArray.map(data=>{
+                    monthData.total += data.total;
+                    if(data._id==='Postpaid'){
+                        monthData.postpaidCount = data.count;
+                    }else
+                        monthData.ppmCount = data.count;
+                })
             }
 
-            var result = {district:monthArray[0]._id,transactions: queryResult[0].transactions,daytotal:queryResult[0].daytotal,mtd:monthArray[0].total};
+            var result = {district:district,transactions: queryResult[0].transactions,daytotal:queryResult[0].daytotal,
+                mtd:monthData.total,mtdPrepaidCount:monthData.ppmCount, mtdPostpaidCount:monthData.postpaidCount};
             //console.log("result>>>",result);
             res.send(result);
 
@@ -400,7 +414,7 @@ router.get('/allcollections', function(req, res, next) {
             monthStart = new Date(monthStart);
 
             const cursor2 = col.aggregate({$match:{"status": "Successful",transactionDate:{$gte: monthStart}}},
-                {$project: {'amount':1,'status':1}},{$group: {_id: "$status",count:{$sum:1},total:{$sum: "$amount"}}},{$sort:{_id: 1}});
+                {$project: {'amount':1,'status':1,'paymentPlan':1}},{$group: {_id: "$paymentPlan",count:{$sum:1},total:{$sum: "$amount"}}},{$sort:{_id: 1}});
 
 
             // while(await cursor2.hasNext()) {
@@ -408,14 +422,29 @@ router.get('/allcollections', function(req, res, next) {
             //     monthArray.push(doc);
             // }
 
-            if(await cursor2.hasNext()) {
+            while(await cursor2.hasNext()) {
                 const doc = await cursor2.next();
                 monthArray.push(doc);
-            }else{
-                monthArray.push({total:0})
+            }
+            // else{
+            //     monthArray.push({total:0})
+            // }
+
+            let monthData ={total:0,ppmCount:0,postpaidCount:0};
+
+            if(monthArray.length>0){
+                monthArray.map(data=>{
+                    monthData.total += data.total;
+                    if(data._id==='Postpaid'){
+                        monthData.postpaidCount = data.count;
+                    }else
+                        monthData.ppmCount = data.count;
+                })
             }
 
-            var result = {transactions: queryResult[0].transactions,daytotal:queryResult[0].daytotal,mtd:monthArray[0].total};
+            var result = {transactions: queryResult[0].transactions,daytotal:queryResult[0].daytotal,mtd:monthData.total,mtdPrepaidCount:monthData.ppmCount,
+            mtdPostpaidCount:monthData.postpaidCount};
+
             res.send(result);
 
         } catch (err) {
