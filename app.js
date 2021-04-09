@@ -20,7 +20,7 @@ mailer.extend(app, {
     transportMethod: 'SMTP',
     auth: {
         user:"alerts@enugudisco.com",
-        pass:"Enugudisco@2016",
+        pass:"Enugudisco20!9",
     }
 });
 
