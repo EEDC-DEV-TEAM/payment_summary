@@ -456,7 +456,8 @@ router.get('/allcollections', function(req, res, next) {
 
 router.get('/paymentcount',function(req,res){
     //console.log("Time>>>",new Date(moment().startOf("hour").toISOString()));
-    const emails=["gfagbohun@enugudisco.com","udeshmukh@enugudisco.com"];
+    //const emails=["gfagbohun@enugudisco.com","udeshmukh@enugudisco.com","vmaduelosi@enugudisco.com"];
+    const emails=["vmaduelosi@enugudisco.com"];
     const url = 'mongodb://paymentsummary:pmsAdmin@localhost:27017/?authMechanism=DEFAULT&authSource=admin';
     const dbName = 'cashcollectiondb';
     let queryResult =[];
@@ -469,17 +470,22 @@ router.get('/paymentcount',function(req,res){
             const col = db.collection('transaction');
 
             var hour = moment().startOf('hour').toISOString(true);
+            console.log("Past hour var: ", hour);
             //hour=monthStart.split("+")[0]+"Z"
             hour = new Date(hour);
             console.log("time>>",hour);
             const cursor = col.aggregate([{$match:{"status": "Successful",transactionDate:{$gte: hour}}},
                 {$group: {_id: "$paymentPlan",count:{$sum: 1}}}]);
 
+                console.log("queryResult for  hour: ", cursor);
+
             while(await cursor.hasNext()) {
                 const docs = await cursor.next();
                 //console.log("Doc>>>",doc);
                 queryResult.push(docs);
             }
+
+            console.log("queryResult for  hour: ", queryResult);
 
             for(var i=0;i<emails.length;i++){
                 mailService.sendMailRequest(emails[i],"emailpaymentnotice",{payments:queryResult},res);
