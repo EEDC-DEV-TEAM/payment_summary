@@ -486,11 +486,12 @@ router.get('/paymentcount',function(req,res){
             console.log("queryResult for  hour: ", queryResult);
 
             for(var i=0;i<emails.length;i++){
-                mailService.sendMailRequest(emails[i],"emailpaymentnotice",{payments:queryResult},res);
+
+             //   mailService.sendMailRequest(emails[i],"emailpaymentnotice",{payments:queryResult},res);
             }
             console.log("Result>>",queryResult);
             
-            res.send({Message: "Email sent successfully"});
+            res.send({Message: "Email sent successfully", "Data": queryResult});
         } catch (err) {
             console.log(err.stack);
         }
