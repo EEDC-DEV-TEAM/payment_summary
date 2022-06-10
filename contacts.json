@@ -1,219 +1,32 @@
 ﻿[
 	{
-		"phoneNumber": "2348150824373",
-		"name": "AMAGA CHRISTOPHER",
-		"buid": "56A",
-		"district": "Aba"
-	},
+                "phoneNumber": "2348150824253",
+                "name": "OKEKE PAUL O.",
+                "buid": "ZONE",
+                "district": "Zone"
+        },
 	{
-		"phoneNumber": "2348150824359",
-		"name": "NWANKWEGU CYPRIAN NWONU",
-		"buid": "59A",
-		"district": "Abakaliki"
-	},
+                "phoneNumber": "2348150824215",
+                "name": "Gbenga Fagbohun",
+                "buid": "ZONE",
+                "district": "Zone"
+        },
 	{
-		"phoneNumber": "2348150824362",
-		"name": "UGHASORO LEONARD OBIERIKA",
-		"buid": "56B",
-		"district": "Ariaria"
-	},
+                "phoneNumber": "08166334001",
+              	"name": "Gbenga Fagbohun",
+                "buid": "ZONE",
+                "district": "Zone"
+        },
 	{
-		"phoneNumber": "2348150824347",
-		"name": "NWANKWO IFEANYI NNAMDI",
-		"buid": "56B",
-		"district": "Ariaria"
-	},
+                "phoneNumber": "07039646619",
+                "name": "JB Yekini",
+                "buid": "ZONE",
+                "district": "Zone"
+        },
 	{
-		"phoneNumber": "2348150824936",
-		"name": "Okwudili Udechukwu",
-		"buid": "56B",
-		"district": "Ariaria"
-	},
-	{
-		"phoneNumber": "2348150824331",
-		"name": "ONUOHA UDEMBA SAMUEL",
-		"buid": "53A",
-		"district": "Awka"
-	},
-	{
-		"phoneNumber": "2348150825881",
-		"name": "J. LENK",
-		"buid": "51B",
-		"district": "Awkunanaw"
-	},
-	{
-		"phoneNumber": "2348150824884",
-		"name": "KAMA OGBONNAYA KALU",
-		"buid": "53B",
-		"district": "Ekwulobia"
-	},
-	{
-		"phoneNumber": "2348037720141",
-		"name": "JUDE EFIDI",
-		"buid": "58C",
-		"district": "New Owerri"
-	},
-	{
-		"phoneNumber": "2348150824956",
-		"name": "OKEZIE UDOCHUKWU",
-		"buid": "55A",
-		"district": "Nnewi"
-	},
-	{
-		"phoneNumber": "2348150824367",
-		"name": "OKOLIE PATRICKMARY ASHIEGBUCHI",
-		"buid": "60B",
-		"district": "Nsukka"
-	},
-	{
-		"phoneNumber": "2348150824334",
-		"name": "UCHIME CHUKWUEMEKA",
-		"buid": "52C",
-		"district": "Ogbaru"
-	},
-	{
-		"phoneNumber": "2348150824963",
-		"name": "OYEWANDE T. ADEWUYI",
-		"buid": "52B",
-		"district": "Ogidi"
-	},
-	{
-		"phoneNumber": "2348150824337",
-		"name": "Onwuzurike Stanley",
-		"buid": "51A",
-		"district": "Ogui"
-	},
-	{
-		"phoneNumber": "2348150824086",
-		"name": "Uche Okala Onuka",
-		"buid": "ZONE",
-		"district": "Zone"
-	},
-	{
-		"phoneNumber": "2348150825860",
-		"name": "SHASHI CHAUBE",
-		"buid": "52A",
-		"district": "Onitsha"
-	},
-	{
-		"phoneNumber": "2348150824340",
-		"name": "UGWU MIKE OSITA",
-		"buid": "54A",
-		"district": "Orlu"
-	},
-	{
-		"phoneNumber": "2348150825859",
-		"name": "YASH SAINI",
-		"buid": "58B",
-		"district": "Owerri"
-	},
-	{
-		"phoneNumber": "2348150824401",
-		"name": "OZOEZE ONYEBUCHI MALACHY",
-		"buid": "57A",
-		"district": "Umuahia"
-	},
-	{
-		"phoneNumber": "2348150824350",
-		"name": "OKAFOR IFEDINMA CHIKE EJIKE",
-		"buid": "58A",
-		"district": "Mbaise"
-	},
-	{
-		"phoneNumber": "2348150824815",
-		"name": "Chika Okwuokei",
-		"buid": "ZONE",
-		"district": "Zone"
-	},
-	{
-		"phoneNumber": "2348150824000",
-		"name": "Uday Deshmukh",
-		"buid": "ZONE",
-		"district": "Zone"
-	},
-	{
-		"phoneNumber": "2348150824004",
-		"name": "Arinze",
-		"buid": "ZONE",
-		"district": "Zone"
-	},
-	{
-		"phoneNumber": "2348150824157",
-		"name": "BOLAJI OLADAYO SIMON",
-		"buid": "ZONE",
-		"district": "Zone"
-	},
-	{
-		"phoneNumber": "2348150824253",
-		"name": "OKEKE PAUL O.",
-		"buid": "ZONE",
-		"district": "Zone"
-	},
-	{
-		"phoneNumber": "2348150824489",
-		"name": "Yateesh Kumar",
-		"buid": "ZONE",
-		"district": "Zone"
-	},
-	{
-		"phoneNumber": "2348150824309",
-		"name": "EKWEKWU VINCENT OBIORA",
-		"buid": "ZONE",
-		"district": "Zone"
-	},
-	{
-		"phoneNumber": "2348150824490",
-		"name": "Dr. Dike",
-		"buid": "ZONE",
-		"district": "Zone"
-	},
-	{
-		"phoneNumber": "2348150825263",
-		"name": "ZALTE UTTAM GOPINATHRAO",
-		"buid": "ZONE",
-		"district": "Zone"
-	},
-	{
-		"phoneNumber": "2348150825264",
-		"name": "Maruthi",
-		"buid": "ZONE",
-		"district": "Zone"
-	},
-	{
-		"phoneNumber": "2348150825265",
-		"name": "Head Commercial",
-		"buid": "ZONE",
-		"district": "Zone"
-	},
-	{
-		"phoneNumber": "2348150824383",
-		"name": "Canice Emeka",
-		"buid": "ZONE",
-		"district": "Zone"
-	},
-	{
-		"phoneNumber": "2347081742684",
-		"name": "Head Business Intelligence",
-		"buid": "ZONE",
-		"district": "Zone"
-	},
-	{
-		"phoneNumber": "2348122082000",
-		"name": "Shantanu",
-		"buid": "ZONE",
-		"district": "Zone"
-	},
-	{
-		"phoneNumber": "2348122345496",
-		"name": "Yateesh",
-		"buid": "ZONE",
-		"district": "Zone"
-	},
-	{
-		"phoneNumber": "2348150824215",
-		"name": "Gbenga Fagbohun",
-		"buid": "ZONE",
-		"district": "Zone"
-	}
+                "phoneNumber": "08033432114",
+                "name": "EKWEKWU VINCENT OBIORA",
+                "buid": "ZONE",
+                "district": "Zone"
+        }
 ]
-

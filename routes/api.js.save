@@ -334,7 +334,7 @@ router.get('/collections', function(req, res, next) {
             //     monthArray.push({_id:district,total:0})
             // }
 
-            let monthData ={total:0,ppmCount:0,postpaidCount:0,ppmAmount:0,postpaidAmount:0};//change here
+            let monthData ={total:0,ppmCount:0,postpaidCount:0};
 
             if(monthArray.length>0){
                 monthArray.map(data=>{
@@ -343,18 +343,11 @@ router.get('/collections', function(req, res, next) {
                         monthData.postpaidCount = data.count;
                     }else
                         monthData.ppmCount = data.count;
-                });
- //add this
-                 monthArray.map(data=>{
-                    if(data._id==='Postpaid'){
-                        monthData.postpaidAmount=Math.trunc(data.total);//change here
-                    }else
-                        monthData.ppmAmount=Math.trunc(data.total);//change here
                 })
             }
 
-           var result = {district:district,transactions: queryResult[0].transactions,daytotal:queryResult[0].daytotal,mtd:monthData.total,mtdPrepaidCount:monthData.ppmCount + "/N" + monthData.ppmAmount.toLocaleString('en-GB') ,
-            mtdPostpaidCount:monthData.postpaidCount + "/N" + monthData.postpaidAmount.toLocaleString('en-GB')};
+            var result = {district:district,transactions: queryResult[0].transactions,daytotal:queryResult[0].daytotal,
+                mtd:monthData.total,mtdPrepaidCount:monthData.ppmCount, mtdPostpaidCount:monthData.postpaidCount};
             //console.log("result>>>",result);
             res.send(result);
 
@@ -446,20 +439,11 @@ router.get('/allcollections', function(req, res, next) {
                         monthData.postpaidCount = data.count;
                     }else
                         monthData.ppmCount = data.count;
-                });
-
-               monthArray.map(data=>{
-
-                    if(data._id==='Postpaid'){
-                        monthData.postpaidAmount=Math.trunc(data.total);//change here
-
-                    }else
-                        monthData.ppmAmount=Math.trunc(data.total);//change here
                 })
             }
 
-            var result = {transactions: queryResult[0].transactions,daytotal:queryResult[0].daytotal,mtd:monthData.total,mtdPrepaidCount:monthData.ppmCount  + "/N" + monthData.ppmAmount.toLocaleString('en-GB'),
-            mtdPostpaidCount:monthData.postpaidCount + "/N" + monthData.postpaidAmount.toLocaleString('en-GB')};
+            var result = {transactions: queryResult[0].transactions,daytotal:queryResult[0].daytotal,mtd:monthData.total,mtdPrepaidCount:monthData.ppmCount,
+            mtdPostpaidCount:monthData.postpaidCount};
 
             res.send(result);
 
@@ -506,6 +490,7 @@ router.get('/paymentcount',function(req,res){
              //   mailService.sendMailRequest(emails[i],"emailpaymentnotice",{payments:queryResult},res);
             }
             console.log("Result>>",queryResult);
+            
             res.send({Message: "Email sent successfully", "Data": queryResult});
         } catch (err) {
             console.log(err.stack);
