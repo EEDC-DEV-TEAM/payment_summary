@@ -273,7 +273,9 @@ router.get('/totalcollection', function(req, res, next) {
 router.get('/collections', function(req, res, next) {
     const district = req.query.district;
 
-    const url = 'mongodb://paymentsummary:pmsAdmin@localhost:27017/?authMechanism=DEFAULT&authSource=admin';
+ const url = 'mongodb://paymentsummary:pmsAdmin@localhost:27017/?authMechanism=DEFAULT&authSource=admin';
+
+  // const url = 'mongodb://74.208.223.31:27017'
     const dbName = 'cashcollectiondb';
     let queryResult =[];
     let monthArray =[];
@@ -344,7 +346,7 @@ router.get('/collections', function(req, res, next) {
                     }else
                         monthData.ppmCount = data.count;
                 });
- //add this
+                 //add this
                  monthArray.map(data=>{
                     if(data._id==='Postpaid'){
                         monthData.postpaidAmount=Math.trunc(data.total);//change here
