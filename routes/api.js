@@ -528,11 +528,7 @@ router.get('/user',function(req,res){
             console.log("Connected correctly to server");
             const db = client.db(dbName);
             const col = db.collection('usermaster');
-
-
             const user= await col.findOne({userName:req.query.username},{projection:{userId:1,userName:1,secondaryUserName:1,firstName:1,lastName:1,emailAddress:1}});
-
-
             console.log("User>>>>>>>>>>>>>>>",user);
 
             //const users=col.find({});
